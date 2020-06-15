@@ -1,20 +1,23 @@
 # Import Modules
+from utils_loquat import updateStockData
+import utils_loquat
+
 from datetime import datetime
-from pandas_datareader import data, wb
 import pandas as pd
 import numpy as np
 import datetime
-import seaborn as sns
+from datetime import date
 import yfinance as yf
 yf.pdr_override()
 
-# Data Import Through Yahoo Finance, 14 years worth of data
-start_date = '2006-01-01'
-end_date = '2020-06-12'
-BAC = data.get_data_yahoo('BAC', start_date, end_date)
-# print(BAC)
+# From CSV ticker file to list of strings
+tickersOfInterest = pd.read_csv('tickersofinterest.csv')
+tickerStr = []
+for number in range(0, len(tickersOfInterest)):
+    tickerStr.append(tickersOfInterest.iloc[number].values[0])
 
-# See percent change
-returns = pd.DataFrame()
-returns = BAC.xs(key='Close', axis=1).pct_change()
-print(returns.head(100))
+
+# Data Import Through Yahoo Finance, 15 years worth of data
+start_date = '2005-01-01'
+end_date = date.today()
+updateStockData(start_date, end_date)
