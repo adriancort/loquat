@@ -1,4 +1,5 @@
 # Import Modules
+import matplotlib.pyplot as plt
 from utils_loquat import updateStockData
 import utils_loquat
 from pandas_datareader import data, wb
@@ -27,4 +28,11 @@ for i in range(len(tickerStr)):
     case = {tickerStr[i]: data.get_data_yahoo(
         tickerStr[i], start_date, end_date)}
     stock_data.update(case)
-stock_data.items()
+
+# More advanced versions can rely on the .get() method to find the key (Ticker)
+
+# Moving through all the data to find pct_changes
+stock_data_returns = {}
+for i in range(len(stock_data.keys())):
+    case = {tickerStr[i]: stock_data[tickerStr[i]].pct_change()}
+    stock_data_returns.update(case)
