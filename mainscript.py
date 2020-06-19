@@ -1,8 +1,8 @@
 # Offline Imports
 from utils import oneDayDelay
-import utils
+from utils import oneDayDelay_plt
 # Other Libraries, may require PIP installation
-import statistics as stat
+import statistics as st
 import matplotlib.pyplot as plt
 from pandas_datareader import data, wb
 from datetime import datetime
@@ -26,7 +26,9 @@ for number in range(0, len(tickersOfInterest)):
 start_date = '2005-01-01'
 end_date = date.today()
 
-print('\n \n**************** \n DOWNLOADING... \n**************** \n \n')
+print('\n \n********************')
+print(' DOWNLOADING ...')
+print('******************** \n \n')
 
 stock_data = {}
 for i in range(len(tickerStr)):
@@ -35,8 +37,6 @@ for i in range(len(tickerStr)):
         tickerStr[i], start_date, end_date)}
     stock_data.update(case)
 
-# More advanced versions can rely on the .get() method to find the key (Ticker)
-
 # Moving through all the data to find pct_changes
 stock_data_returns = {}
 for i in range(len(stock_data.keys())):
@@ -44,7 +44,10 @@ for i in range(len(stock_data.keys())):
     stock_data_returns.update(case)
 
 # Row Delay Correlation
-print('\n \n******************** \n ALL DATA DOWNLOADED \n******************** \n \n')
+print('\n \n********************')
+print(' ALL DATA DOWNLOADED')
+print('******************** \n \n')
 
 testcols = stock_data_returns['ASML']['Close']
 testdictionary = oneDayDelay(testcols)
+oneDayDelay_plt(testdictionary[0], testdictionary[1])
